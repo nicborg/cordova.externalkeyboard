@@ -29,7 +29,7 @@ if ( rootdir /* && cmdline.indexOf('cordova platform add ios') >= 0 */ ) {
 				}
 			}
 			if (project) {
-				var plugindir = path.join(rootdir, "./platforms/ios/" + project + "/Plugins/com.atuhi.externalkeyboard");
+				var plugindir = path.join(rootdir, "./platforms/ios/" + project + "/Plugins/cordova-external-keyboard");
 				var stats = fs.lstatSync(plugindir);
 				if (stats.isDirectory()) {
 					var srcfile = path.join(rootdir, "./platforms/ios/" + project + "/Classes/MainViewController.m");
@@ -91,7 +91,7 @@ if ( rootdir /* && cmdline.indexOf('cordova platform add ios') >= 0 */ ) {
 									'return commands; }\n' +
 									'- (void) onKeyPress:(UIKeyCommand*) cmd {\n' +
 									'NSString *combo = [ExternalKeyboard getCombo:cmd];\n' +
-									'NSString *jsStatement = [NSString stringWithFormat:@"handleKeyCommand(\'%@\')", combo];\n' +
+									'NSString *jsStatement = [NSString stringWithFormat:@"cordova.fireDocumentEvent(\'external_keydown\', {\'key\': \'%@\'})", combo];\n' +
 									'[self.commandDelegate evalJs:jsStatement]; }\n' +
 									'@end'
 								lines[last] = ins;

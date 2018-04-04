@@ -1,15 +1,15 @@
 # External Keyboard Plugin for Cordova, Phonegap and Ionic
 
-This project is part of [Atuhi](http://atuhi.com)
+This project is part of a Simple Joy solution that required better bluetooth IR scanning.
 
-The `cordova.plugins.ExternalKeyboard` provides an easy way to configure keyboard shortcuts for iOS 7 devices with an external bluetooth keyboard. The plugin runs an `after-install` hook to modify the MainViewController.h and MainViewController.m files as described below.
+The `cordova.plugins.ExternalKeyboard` provides an easy way to configure keyboard shortcuts for iOS 9 devices with an external bluetooth keyboard. The plugin runs an `after-install` hook to modify the MainViewController.h and MainViewController.m files as described below.
 
 
 # Installation
 
 First install the plugin proper:
 
-    cordova plugin add https://github.com/petrsimon/cordova.externalkeyboard.git
+    cordova plugin add https://github.com/SimpleJoySolutions/cordova.externalkeyboard.git
 
 When the plugin is installed, the iosAfterInstall.js hook script will modify the MainViewController.h and MainViewController.m files as shown here:
 
@@ -56,7 +56,7 @@ add
     NSLog(@"onKeyPress");
     NSString *combo = [ExternalKeyboard getCombo:cmd];
     NSLog(@"COMBO [%@]", combo);
-    NSString *jsStatement = [NSString stringWithFormat:@"handleKeyCommand('%@')", combo];
+    NSString *jsStatement = [NSString NSString *jsStatement = [NSString stringWithFormat:@"cordova.fireDocumentEvent('external_keydown', {'key': '%@'})", combo];
     [self.commandDelegate evalJs:jsStatement];
 }
 ```
@@ -89,22 +89,33 @@ cordova.plugins.ExternalKeyboard.setKeyCommands(commands, delimiter);
 
 
 ## Handling the shortcuts
-On the page or in one of your modules, create the function `handleKeyCommand` like so:
+On the page or in one of your modules, create the function that listens for the 'external_keydown' event on the document like so:
 ```javascript
-window.handleKeyCommand = function(combo) {
-    // do something usefull
-}
+document.addEventListener('external_keydown', function(event){ console.log(event.key)})
 ```
 
-In AngularJS or Ionic it is quite possible to define or overwrite the `handleKeyCommand` function in a controller or to send the combo to a service that will take care of it, e.g.
+In Angular:
 ```javascript
-window.handleKeyCommand = function(combo) {
-    $scope.handleCombo(combo)
-    // or using a service
-    Keymap.handleShortcut(combo);
-}
+  @HostListener('document:external_keydown', ['$event']) onExternalKeyDown(event) {
+    const textInput = event.key;
+      console.log("input received", textInput, event );
+    }
+  }
 ```
 
 # Supported Platforms
 
 - iOS
+
+### Install for iOS only on a multi platform Cordova project
+
+clone the repo, then run something similar to this:
+```
+plugman install --platform ios --project platforms/ios --plugin ~/devProjects/cordova.externalkeyboard
+```
+uninstall
+```
+plugman uninstall --platform ios --project platforms/ios --plugin cordova-external-keyboard
+```
+
+https://stackoverflow.com/questions/36923980/how-to-add-a-plugin-on-only-one-ionic-platform
