@@ -1,0 +1,22 @@
+{
+  "name": "cordova-external-keyboard",
+  "version": "1.0.0",
+  "cordova": {
+    "id": "cordova-external-keyboard",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "description": "Cordova External Keyboard Plugin",
+  "repository": "https://github.com/SimpleJoySolutions/cordova.externalkeyboard.git",
+  "issue": "https://github.com/SimpleJoySolutions/cordova.externalkeyboard/issues",
+  "keywords": [
+    "ionic",
+    "cordova",
+    "keyboard",
+    "ecosystem:cordova",
+    "cordova-ios",
+  ],
+  "author": "Jonathan Flower",
+  "license": "Apache 2.0"
+}
