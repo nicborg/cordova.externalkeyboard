@@ -75,6 +75,7 @@
     BOOL option = [mods rangeOfString:@"alt" options: NSCaseInsensitiveSearch].location != NSNotFound;
     BOOL shift = [mods rangeOfString:@"shift" options: NSCaseInsensitiveSearch].location != NSNotFound;
     BOOL caps = [mods rangeOfString:@"caps" options: NSCaseInsensitiveSearch].location != NSNotFound;
+    BOOL numpad = [mods rangeOfString:@"numpad" options: NSCaseInsensitiveSearch].location != NSNotFound;
     
     //NSLog(@"getKeyCMD %@: meta=%hhd, option=%hhd, ctrl=%hhd, shift=%hhd",mods, meta, option, ctrl, shift);
     
@@ -125,6 +126,10 @@
         flag = UIKeyModifierAlphaShift;
     }
     
+    else if (numpad){
+        flag = UIKeyModifierNumericPad;
+    }    
+    
     return flag;
 }
 
@@ -157,6 +162,10 @@
     if((flags & UIKeyModifierAlphaShift) == UIKeyModifierAlphaShift){
         [modifierSymbols addObject:@"caps"];
     }
+    
+    if((flags & UIKeyModifierNumericPad) == UIKeyModifierNumericPad){
+        [modifierSymbols addObject:@"numpad"];
+    }    
     
     if ([input  isEqual: @"\r"]){
         [modifierSymbols addObject:@"enter"];
